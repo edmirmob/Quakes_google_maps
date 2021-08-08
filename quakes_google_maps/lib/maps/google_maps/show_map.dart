@@ -11,7 +11,7 @@ class ShowMap extends StatefulWidget {
 class _ShowMapState extends State<ShowMap> {
   GoogleMapController mapController;
   static final LatLng _center = LatLng(43.85328125938318, 18.374909033640293);
-
+  static final LatLng _anotherPlace = LatLng(43.853776, 18.366498);
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
@@ -24,9 +24,9 @@ class _ShowMapState extends State<ShowMap> {
       ),
       body: GoogleMap(
           onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(target: _center, zoom: 11),
-          mapType: MapType.terrain,
-          markers: {sarajevoMarker},
+          initialCameraPosition: CameraPosition(target: _center, zoom: 13),
+          mapType: MapType.normal,
+          markers: {sarajevoMarker, sarajevoMarkerSecond},
           ),
           
     );
@@ -36,6 +36,12 @@ class _ShowMapState extends State<ShowMap> {
     markerId: MarkerId('Sarajevo'),
     position: _center,
     infoWindow: InfoWindow(title: 'Sarajevo', snippet: 'This is a great town!'),
-    icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed)
+    icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta)
+  );
+   Marker sarajevoMarkerSecond = Marker(
+    markerId: MarkerId('Sarajevo area'),
+    position: _anotherPlace,
+    infoWindow: InfoWindow(title: 'Sarajevo area', snippet: 'This is area!'),
+    icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueMagenta)
   );
 }
