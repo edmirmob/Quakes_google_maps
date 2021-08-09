@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quakes_google_maps/maps/google_maps/quakes_map.dart';
 import 'package:quakes_google_maps/maps/google_maps/show_map.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ShowMap(),
+      home: QuakesMap(),
     );
   }
 }

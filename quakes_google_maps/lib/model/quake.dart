@@ -1,3 +1,5 @@
+import 'package:quakes_google_maps/util/type_helper.dart';
+
 class Quake {
   String type;
   Metadata metadata;
@@ -12,7 +14,7 @@ class Quake {
         ? new Metadata.fromJson(json['metadata'])
         : null;
     if (json['features'] != null) {
-      features = [];Features();
+      features = <Features>[];
       json['features'].forEach((v) {
         features.add(new Features.fromJson(v));
       });
@@ -109,7 +111,7 @@ class Properties {
   String place;
   int time;
   int updated;
-  Null tz;
+  //  Null tz;
   String url;
   String detail;
   int felt;
@@ -137,7 +139,7 @@ class Properties {
       this.place,
       this.time,
       this.updated,
-      this.tz,
+    //  this.tz,
       this.url,
       this.detail,
       this.felt,
@@ -161,29 +163,29 @@ class Properties {
       this.title});
 
   Properties.fromJson(Map<String, dynamic> json) {
-    mag = json['mag'];
+    mag = TypeHelper.toDouble(json['mag']);
     place = json['place'];
-    time = json['time'];
-    updated = json['updated'];
-    tz = json['tz'];
+    time = TypeHelper.toInt(json['time']);
+    updated = TypeHelper.toInt(json['updated']);
+    //  tz = TypeHelper.toInt(json['tz']);
     url = json['url'];
     detail = json['detail'];
-    felt = json['felt'];
-    cdi = json['cdi'];
-    mmi = json['mmi'];
+    felt = TypeHelper.toInt(json['felt']);
+    cdi = TypeHelper.toDouble(json['cdi']);
+    mmi = TypeHelper.toDouble(json['mmi']);
     alert = json['alert'];
     status = json['status'];
-    tsunami = json['tsunami'];
-    sig = json['sig'];
+    tsunami = TypeHelper.toInt(json['tsunami']);
+    sig = TypeHelper.toInt(json['sig']);
     net = json['net'];
     code = json['code'];
     ids = json['ids'];
     sources = json['sources'];
     types = json['types'];
-    nst = json['nst'];
-    dmin = json['dmin'];
-    rms = json['rms'];
-    gap = json['gap'];
+    nst = TypeHelper.toInt(json['nst']);
+    dmin = TypeHelper.toDouble(json['dmin']);
+    rms = TypeHelper.toDouble(json['rms']);
+    gap = TypeHelper.toInt(json['gap']);
     magType = json['magType'];
     type = json['type'];
     title = json['title'];
@@ -195,7 +197,7 @@ class Properties {
     data['place'] = this.place;
     data['time'] = this.time;
     data['updated'] = this.updated;
-    data['tz'] = this.tz;
+    // data['tz'] = this.tz;
     data['url'] = this.url;
     data['detail'] = this.detail;
     data['felt'] = this.felt;
