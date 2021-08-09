@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:quakes_google_maps/model/quake.dart';
 import 'package:quakes_google_maps/network/network.dart';
@@ -16,6 +17,7 @@ class _QuakesMapState extends State<QuakesMap> {
   Future<Quake> _quakeData;
   Completer<GoogleMapController> _controller = Completer();
   List<Marker> _markerList = <Marker>[];
+  double _zoomVal = 5.0;
 
   @override
   void initState() {
@@ -24,6 +26,32 @@ class _QuakesMapState extends State<QuakesMap> {
     // _quakeData.then((value) =>
     //     {print('Place: ${value.features.elementAt(0).properties.place}')});
   }
+ Widget _plusZoom(){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Align(
+      alignment: Alignment.topRight,
+      child: IconButton(onPressed: (){
+       _zoomVal++;
+       _plus(_zoomVal);
+      },
+       icon: Icon(FontAwesomeIcons.searchPlus)),
+      ),
+    );
+  }
+  Widget _minusZoom(){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Align(
+      alignment: Alignment.topLeft,
+      child: IconButton(onPressed: (){
+       _zoomVal--;
+       _minus(_zoomVal);
+      },
+       icon: Icon(FontAwesomeIcons.searchMinus)),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +59,8 @@ class _QuakesMapState extends State<QuakesMap> {
       body: Stack(
         children: [
           _buildGoogleMap(context),
+          _minusZoom(),
+          _plusZoom()
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -81,5 +111,19 @@ class _QuakesMapState extends State<QuakesMap> {
             })
           });
     });
+  }
+
+ Future<void> _minus(double zoomVal)async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(target: LatLng(40.712776, -74.005974),zoom: zoomVal)
+    ));
+  }
+
+  Future<void> _plus(double zoomVal)async {
+      final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(target: LatLng(40.712776, -74.005974),zoom: zoomVal)
+    ));
   }
 }
