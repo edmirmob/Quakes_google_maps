@@ -52,6 +52,7 @@ class _QuakesMapState extends State<QuakesMap> {
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
+        markers: Set<Marker>.of(_markerList),
       ),
     );
   }
